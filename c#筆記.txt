@@ -1,0 +1,199 @@
+[觀念]
+	C# 編譯後會產生 ".exe" ".dll",這些叫 Assembly(組件),是微軟的中繼語言,沒有與電腦直接溝通的功能
+	再經過 ".net Framework" ".net core" 二次編譯,為組件與電腦溝通的橋樑,可稱為框架、API(Appliation Programming Interface)
+ 
+	.net Framework 分很多框架,使用相應API(類別庫),並分類,有Core(核心)、Window(視窗)、Web(網路)、Data(資料)...等,屬於微軟平台
+	.net core 屬跨平台(Linux,Windows,Mac)
+	兩者不太相容
+ 
+	C:\Windows\Microsoft.NET\assembly\GAC_MSIL
+ 
+	assembly(組件) class library .dll檔
+		GAC(Global Assembly Cache)全域組件快取 用來放共用組件
+ 
+	使用 Framework Project會引用Framework API(Class Library).dll
+ 
+	方案總管
+		解決方案 包含專案
+			專案 包含Class
+		 
+		NameSpace(命名空間) 專案 管理Data Type
+		 
+		Config(組態檔,配置檔) 使用XML語法(標籤) 配置環境用 撰寫時會APP.config 在編譯後會轉變成 xxx.exe.config
+		 
+		參考 放框架(API)用
+
+	每支程式有許多Class,但只有一個Class是程式進入點(Entry Point)
+		Entry Point可以寫的有Method(程序,方法,用大括弧括起來)、Property(屬性)、Data Field(資料欄)...等
+		公式為 public static void Main()
+			public 可見度修飾詞
+			static 非物件化,不用建立實例(直接載入Global記憶體執行)
+			void 功能執行回應值 void:沒有回應值
+			Main 名稱
+
+	Struct 結構
+		不具有繼承
+		為值型別(Value Type),具有固定空間,較省空間
+		int,char,boolean,double...等 都是結構
+		
+	Class 類別 Interface 介面
+		具有繼承,可做衍伸
+		為參考型別(Reference Type),不固定長度,因不知道他們繼承了多少,所以傳回位址來做參考,較不省空間
+		
+	如果運算之後不知道要帶甚麼型別去接,可以先用 var 接完後去看系統建議哪種型別
+
+	記憶體儲存(Memory Store)
+		陣列 Array
+			1.同類型資料集合
+			2.使用語法 Int32[,]
+			3.固定長度,元素數量 因為是固定長度,所以保有連貫性,速度也比較快
+		Collection
+			動態儲存
+	
+	自訂結構
+		結構的內容為複合型別 所以無法 new 後使其nullable
+		結構建構子必須設定每一個成員 較為嚴謹
+			
+	若 private 與 public 名稱相同 private的名稱前面加上底線 "_"
+	
+	OOP object oriented programing 物件導向
+		三大要素 封裝性,繼承性,多型化
+		
+	系統開發有分 Console(主控台)、Web、GUI...等,設計一個共用的Class都不會有畫面(UI),產生Class library (類別庫xxx.dll)
+		而有畫面的共用Class叫Control Library(控制項類別庫)
+		
+	類別若沒有寫建構子 編譯會產生預設的 (空參數)
+	
+	反編譯工具 Developer Command Prompt
+		輸入 ildasm
+	
+	建構子
+		透過參數架構不一樣就可以使用多載
+		class建立後若沒有設定建構子會預設空建構子
+		自訂class一旦建立建構子後空的建構子就會消失
+		不具繼承性
+		建構子名稱與類別名稱一樣
+		
+	Override(複寫)
+		堅持與父類別的方法名稱一樣(修飾詞 回應值 方法名稱 參數架構)
+		方便以後向上向下相容
+		
+	抽象類別 abstract
+		類別的公版
+		不能建構物件 可以當型別
+		會有抽象方法
+		
+	抽象方法
+		會定義方法名稱 參數 但沒有內容
+	
+	DAO Pattern 資料存取物件 data access object
+		Access 查詢,新增,刪除,修改
+		
+	DI 依賴注入(Dependency Injection)
+		把被依賴物件注入被動接收物件中	
+		就像FoodPanda
+		依賴注入容器:FoodPanda
+		消費者:被動接收物件
+		外送員:被依賴物件
+		
+	IoC 注入控制反轉 Inversion of Control
+		對於某個物件的控制權移轉給第三方容器 	
+		
+	Interface 介面
+		牽扯到跨平台
+		預設抽象方法
+		是一種公版,規範
+		類別沒有共同的父類別,可以使用介面
+		可以當型別,方法
+		用在改版規範
+		就像火車頭是一個架構 GUI改版都不會影響火車頭功能
+		可以繼承
+		
+	Entity Class
+		當一個物件的生命期開始被你追蹤時，你就需要為它建立身份標誌 (identity)，而這個物件我們就稱為 Entity
+		銀行帳戶就是一個明顯的代表，使用者需要追蹤銀行帳戶各種狀態 (餘額、互動紀錄)的變化，所以每一個帳戶都必須要有自己獨特的 ID 或是相關的代號來表達唯一性，才不會跟系統中其他的銀行帳戶搞混
+		
+	自動屬性寫法 
+		屬性沒有實做,Data Field也沒寫 在編譯的時候系統會自動產生
+        public string customerID { get; set; }
+		
+	繼承是直向方展 介面是橫向發展
+	
+	SQL Pass Through
+		在程式裡直接下SQL語法
+		
+	AutoBoxing
+		自動封裝成物件參考型別
+	
+
+		
+[語法]
+	using 引用命名空間
+
+	DateTime-DateTime 型別是 TimeSpane 結構
+
+	TryParse 是static Mathod,內部具有防呆(Try Catch例外管理)
+
+	聯立條件 兩邊都成立使用 &、&&(短路寫法,前面條件不成立就不成立了)
+
+	string 是類別(class) 參考型別(referanec),會造成位址比位址,內容應該要用Equals來做比較
+
+	集合不能一遍走訪一邊修改內容
+
+	for迴圈
+		for(初始值;控制條件;遞增遞減)
+		迴圈裡的變數生命週期只再回圈內
+
+	結構型別不能設為null,除非加上"?" 如:int? i=null;
+
+	delegate(委派)
+		可以想成有許多function的參數一樣,可以使用委派模組化輸入參數 像vb6的Type
+
+	多維陣列
+		矩陣陣列 int[,] xxx=new int[,]
+		不規則陣列(二維) int[][]=new int[][]
+		
+	Lambda語法 "=>" 就是 goto 的意思 目的在於簡化類別規劃
+		直接使用函數架構來運算
+		
+	繼承
+		public class ClassName:父類別{}
+		父類別若無空參數 子類別必須明確寫出建構子(裡面使用 base(,...)父類別建構子)
+			public class ClassName(int a,string b):base(a,b)
+	
+	#region 名稱 #endregion 設定區段標籤 方便閱讀
+	
+	protected 不封裝子類別 封裝執行階段產生的物件
+	
+	virtual抽象方法 使用在父類別,使子類別可以在方法加上Override就繼承
+		public virtual void 方法名稱(參數)
+	
+	Generic 泛型
+		如果方法不能確立INPUT與OUTPUT型態,就用泛型
+		回傳類型 方法名稱<T>(傳入參數)
+			T:輸入型別
+			傳入參數:與T相應的參數 ex: void Name<int>(123)
+	
+	ArrayList
+		是有順序的集合 就算內容一樣也沒關係
+	
+	hashset
+	
+	hashtable
+	
+	字串前面加上@就可以對應特殊字元
+		string path = @"C:\Users\user\Desktop\C#HTML5\Images\background-image.jpg";
+		
+	try catch finally
+		try:寫正常程式
+		catch:要捕捉的例外要怎麼應對
+		finally:是否有例外都要執行的code
+		
+	streamBuilder
+	
+	using(物件){}
+		會在結束時呼叫物件解構,前提是物件要有解構介面(IDisposable)
+		
+	
+11
+	
