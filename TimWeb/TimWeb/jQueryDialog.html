@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>jQuery對話盒設計應用</title>
+    <script src="JS/jquery-3.6.3.min.js"></script>
+    <script src="Scripts/jquery-ui.js"></script>
+    <link href="Content/jquery-ui.css" rel="stylesheet" />
+    <link href="Content/jquery-ui.structure.css" rel="stylesheet" />
+    <link href="Content/jquery-ui.theme.css" rel="stylesheet" />
+    <script src="Scripts/bootstrap.bundle.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="JS/vue.min.js"></script>
+
+    <script>
+        //選擇挑文件物件
+        $(document).ready(
+            //下載引發初始化事件程序
+            function () {
+                //隱藏客戶維護區塊
+                $('#CustomerPanel').hide();
+                console.log('hi');
+                //初始化
+                $('#News').dialog();
+            }
+        );
+    </script>
+    <script>
+        //定義物件模組架構
+        var customers = {
+            customerID: '',
+            companyName: '',
+            adress: '',
+            phone: '',
+            country: ''
+        };     
+    </script>
+</head>
+<body>
+    <!--客戶維護資料對話盒-->
+    <div id="app">
+        <button class="btn btn-danger" v-on:click="showAdd">客戶資料新增</button>
+        <!--對話區塊-->
+        <div id="News" title="對話盒">
+            <h2>重大訊息</h2>
+            <div>國防部近日預告將修正《全民防衛動員準備法》引發外界關注。行政院長陳建仁今天表示，檢討過程中外界有一些誤會，但絕對沒有要學生上戰場、做武器，也沒有新聞箝制問題，目前在蒐集資料的過程，請國防部務審慎研議，參採各方意見，做最好的修法。他還說，修法預告14天後，就會請國防部下架，等各界意見整合後才會提出。</div>
+        </div>
+        <div id="CustomerPanel" title="客戶資料新增">
+            <table>
+                <tr>
+                    <td>客戶編號</td>
+                    <td><input type="text" v-model="customer.customerID" /></td>
+                </tr>
+                <tr>
+                    <td>公司行號</td>
+                    <td><input type="text" v-model="customer.companyName" /></td>
+                </tr>
+                <tr>
+                    <td>聯絡地址</td>
+                    <td><input type="text" v-model="customer.adress" /></td>
+                </tr>
+                <tr>
+                    <td>連絡電話</td>
+                    <td><input type="text" v-model="customer.phone" /></td>
+                </tr>
+            </table>
+            <h2><b>您新增的客戶編號:{{customer.customerID}}</b></h2>
+        </div>
+    </div>
+    <!--建構Vue物件-->
+    <script>
+        var app = new Vue(
+            //配置JS
+            {
+                el: '#app',
+                data: {
+                    customer: customers,
+                    message:''
+                },
+                methods: {
+                    showAdd: function () {
+                        //對話盒要客製化
+                        $('#CustomerPanel').dialog(
+                            {
+                                width: 400,
+                                height: 400,
+                                modal: true,
+                                buttons: {
+                                    儲存: function () {
+                                        //將客戶資料轉成json 用 ajax 傳到後端
+
+                                    },
+                                    取消: function () {
+                                        //關閉對話盒
+                                        $(this).dialog("close");
+                                    }
+                                    }
+                                }
+                        );
+                    }
+                }
+            }
+        );
+    </script>
+</body>
+</html>

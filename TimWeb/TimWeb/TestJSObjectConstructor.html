@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>測試JS定義類別-具有建構子</title>
+    <script>
+        //建構兩個員工物件
+        var emp1 = new employees("1", "Tim", "0921412228")
+        emp1.adress = '台中市南區';
+        emp1.country = '台中市';
+        var emp2 = new employees("2", "Ariel", "0972799113")
+        emp2.adress = '雲林縣斗六市';
+        emp2.country = '雲林縣';
+
+        console.log(typeof emp1);
+        window.alert(emp2.name);
+        emp1.sayHello();
+        alert(emp1.information());
+        alert(emp2.helloWord('臭MOMO'));
+        alert(emp1.work('軟體工程師'));
+    </script>
+</head>
+<body>
+
+</body>
+</html>

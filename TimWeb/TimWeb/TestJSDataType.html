@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>JS資料型別</title>
+    <script type="text/javascript">
+        //定義字串
+        var myName = '臭MOMO';
+        document.write("<h3>MyName:" + typeof (myName) + "<h3/>");
+        var myNumber = 100;
+        document.write("<h3>MyNumber:" + typeof (myNumber) + "<h3/>");
+        var myFloat =123.45;
+        document.write("<h3>MyFloat:" + typeof (myFloat) + "<h3/>");
+        var myBoolean = true;
+        document.write("<h3>MyBoolean:" + typeof (myBoolean) + "<h3/>");
+        var my = [];
+        document.write("<h3>My[]:" + typeof (my) + "<h3/>");
+        var my1 = {};
+        document.write("<h3>My{}:" + typeof (my1) + "<h3/>");
+        var myDay = new Date(2023,0,20);
+        document.write("<h3>MyDay:" + typeof (myDay) + " " + myDay + "<h3/>");
+
+        if (typeof myNumber == 'number') {
+            //換算
+            let twd = myNumber * 30;
+            alert(twd);
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>

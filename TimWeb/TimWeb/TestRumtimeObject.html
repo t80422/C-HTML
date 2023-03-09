@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>執行階段產生JS物件</title>
+</head>
+<body>
+    <script>
+        //建構員工物件
+        var emp = {
+            id:'1',
+            name:'Tim',
+            adress:'台中市南區',
+            phone:'0921412228',
+            //功能
+            sayHello: function (who) {
+                var msg = this.name + '向' + who + '問好!';
+                return msg;
+            }
+        }
+        //測試
+        document.write(typeof emp + '<br/>');
+        document.write(emp.sayHello('Ariel') + '<br/>');
+        //設定jasonObject
+        var emp2 = {
+            "id": 1,
+            "name": 'Tim',
+            "adress": {
+                "country": '台灣',
+                "city": '台中市',
+                "area":'南區'
+            },
+            "phone": [
+                '0921412228',
+                '04-22621228'
+            ],
+            "sayHello":function () {
+                alert('大家好');
+            }
+        }
+        document.write(typeof emp2 + '<br/>');
+        document.write(emp2.sayHello());
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+CSS
+	選擇元素再加上":"可以有動態效果
+		button:hover{
+					background-color:blue;
+					color:red;
+				}
+jQuery
+
+JavaScript
+
+Vue
+
+SVG
+	SVG text generator https://maketext.io/
+
+Web Socket
+
+CHT iot
+
+Simple WebSocket Client
+	websocket
+	
+Https wss
+	最後一個s 代表s-TLS(Transfor layer security-SSL3)傳輸訊息層加密
+	
+XHR(XML Http Request)
+	
+	<legend>frame的標題
+		
+	<script>JS語法寫在此
+	
+	<table>表格元素
+		<tr> row 元素
+		<td> cell 元素
+		
+	href
+
+[JavaScript]
+	alert(any):void 在中上方跳出警示
+	
+	document.write(<文字屬性>文字)顯示文字
+		變數無法再函式參數裡做運算
+	
+	var 宣告一個變數, 同時可以非強制性地賦予一初始值。不需要定義型別
+	
+	let 用於宣告一個「只作用在當前區塊的變數」，初始值可選擇性的設定。
+
+	switch (對象){case'' break;} 就是select case 
+	
+	var a=[] 初始化陣列內容
+		a.push;增加內容
+	
+	初始化物件
+		var emp = {id:'1',name:'Tim'} 屬性給值要用":"
+		
+	自定義物件內的function寫法
+		名稱: function (參數) {}
+		
+	建構子寫法
+		var employees = function (id, name, phone) {
+            //相對物件this屬性
+            this.id = id;
+            this.name = name;
+            this.phone = phone;
+            this.adress = "";
+            this.country = "";
+            this.sayHello = function () {
+                alert(this.name + '您好');
+            }
+			
+	JSON語法 屬性名稱要用雙引號
+		emp2 = {
+				"id": 1,
+				"name": 'Tim',
+				"adress": {
+					"country": '台灣',
+					"city": '台中市',
+					"area":'南區'
+				},
+				"phone": [
+					'0921412228',
+					'04-22621228'
+				],
+				"sayHello":function () {
+					alert('大家好');
+				}
+				
+		json.stringify(對象) 將對象轉成json字串
+				
+	prototype 
+		定義多重method
+			employees.prototype = {
+				information: function(){
+				var msg = '姓名:' + this.name + ' 聯絡地址:' + this.adress;
+				return msg;
+			},
+			helloWord: function(who) {
+				return who + '您好';
+			}
+			};
+		
+		只加入一個方法在特定類別上
+			employees.prototype.work = function (job) {
+				return this.name+'從事的工作為:'+job
+			}
+
+[Vue]
+	表達式
+		{{}}
+	
+	實例
+		var app = new Vue()
+			
+	屬性
+		el: '#app'(影響對象)
+		
+		data(來源):{
+				customer: customers,
+				message:'客戶資料維護'
+				}
+		
+		create(初始化後):
+		
+		method(自訂功能): {}
+		
+		$.ajax(前後端非同步化處理)(
+			{
+				url:服務位址,
+				type:傳送方式,
+				data:傳送對象,
+				success:傳送成功回傳,
+				error:異常回報,
+			}
+		)
+	
+	在標籤內使用
+		<v-model:text="屬性">
+		<v-on:觸發方式="觸發方法">
+
+SVG
+
+19

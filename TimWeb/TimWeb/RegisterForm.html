@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>會員註冊表單</title>
+</head>
+<body>
+    <form>
+        <!--表單欄位-->
+        <table>
+            <tr>
+                <td><label>使用者帳號</label></td>
+                <td><input type="text" maxlength="10" required id="user" /></td>
+            </tr>
+            <tr>
+                <td><label>密碼</label></td>
+                <td><input type="password" maxlength="10" id="psw" /></td>
+            </tr>
+            <tr>
+                <td><label>姓名</label></td>
+                <td><input type="text" maxlength="20" id="name" /></td>
+            </tr>
+            <tr>
+                <td><label>email</label></td>
+                <td><input type="text" maxlength="50" id="email" value="t987654@yahoo.com.tw"/></td>
+            </tr>
+        </table>
+
+        <input type="submit" value="註冊" id="btnSubmit" />
+
+        <script>
+            //參照文件物件 DOM(Document Object Model)
+            var pwd = document.getElementById('psw');
+            alert(pwd);
+            alert(email.value);
+            //參照按鈕進行驗證輸入,會引發事件
+
+        </script>
+
+        
+
+    </form>
+</body>
+</html>

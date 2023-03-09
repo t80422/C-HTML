@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>客戶資料維護</title>
+    <script src="JS/jquery-3.6.3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+</head>
+<body>
+    <style>
+        input[type=text]{
+            color:antiquewhite;
+            background-color:blue;
+            font-family:標楷體;
+            font-size:large;
+            font-style:italic;
+        }
+        label {
+            font-size: large
+        }
+        button {
+            font-size: large
+        }
+        .textColor{
+            color:cadetblue
+        }
+        .backGround{
+            background-color:darkgoldenrod
+        }
+    </style>
+    <!--表單 兩個重要屬性 action method-->
+    <fieldset id="app">
+        <legend></legend>
+
+        <form method="post" action="CustomersForm.html">
+            <div id="app">
+                <div>
+                    <label for="customerid">客戶編號</label>
+                    <!--使用name屬性定義後送給後端進行識別的名稱-->
+                    <!--<input type="text" name="customerid" style="color:red;background-color:black" />-->
+                    <input type="text" v-model:text="customer.ID" name="customerid" style="color:red;background-color:black" />
+                </div>
+                <div>
+                    <label for="company">公司行號</label>
+                    <input type="text" v-model:text="customer.companyName" name="company" />
+                </div>
+                <div>
+                    <label>連絡電話</label>
+                    <input type="text" v-model:text="customer.phone" name="phone" />
+                </div>
+                <div>
+                    <label for="adress">客戶地址</label>
+                    <input type="text" v-model:text="customer.adress" name="adress" />
+                </div>
+                <div>
+                    <label for="color">偏好顏色</label>
+                    <input type="color"v-model:text="customer.color" name="color" />
+                </div>
+                <div>
+                    <label for="birthday">生日</label>
+                    <input type="date" v-model="customer.birthday" name="birthday" /> <!--可不寫Text-->
+                </div>
+                <div>
+                    <label for="sex">性別</label>
+                    <!--多選一項目操作 群組定義-->
+                    <input type="radio" value="男性" v-model="customer.sex" name="sex" /><label>男性</label>
+                    <input type="radio" value="女性" v-model="customer.sex" name="sex" /><label>女性</label>
+                </div>
+                <div style="font-size:20px;">挑選的性別: {{customer.sex}}</div>
+                <div>
+                    <label for="meno">備註說明</label>
+                    <br />
+                    <textarea cols="20" rows="10" v-model:text="customer.memo" name="memo" class="textColor backGround">
+
+                    </textarea>                    
+                </div>
+                <div>
+                    <button type="submit" v-on:click="customersAdd">儲存</button>
+                    <button type="reset">清除</button>
+                </div>
+                <div>
+                    公司行號:{{customer.companyName}}
+                </div>
+                <div>{{result}}</div>
+                
+            </div>
+        </form>
+        
+    </fieldset>
+    <!--建構一個Vue個體物件-->
+    <script>
+        customers = {
+        ID: '1234',
+        companyName: '',
+        adress: '',
+        phone: '',
+        color: 0,
+        sex: '',
+        birthday: '',
+        number: 0,
+        memo: ''
+        }
+        //透過settings(物件設定相關屬性) 作為初始化
+        var app = new Vue(
+            //初始化物件
+            {
+                el: '#app',
+                //自訂程序或功能
+                method: {
+                    customersAdd: function (e) {
+                        //alert(customers.companyName);
+                        //將customers物件序列化成json字串 呼喚服務傳輸
+                        var jsonString = json.stringify(customers)
+                        console.log(jsonString);
+                        //建構非同步處理物件 採用jquery ajax
+                        $.ajax(
+                            //傳遞一個JS物件
+                            {
+                                url: 'CustomersService.aspx',
+                                //傳送方式
+                                type: 'POST',
+                                data: jsonString,
+                                success: function (data, status, xhr) {
+                                    alert(data);
+                                    app.result = data;
+                                },
+                                error: function (xhr, status, error) {
+                                    alert('錯誤');
+                                }
+
+                            }
+                        )
+                        e.preventDefault();
+                    }
+                },
+                //資料模組
+                data: {
+                    customer: customers,
+                    message: '客戶資料維護',
+                    result:''
+                },
+                //vue物件產生後初始化
+                beforeCreate: function () {
+                    customers.companyName= '珍榮發'
+                }
+            }
+        )
+    </script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>表格渲染資料</title>
+    <script src="JS/vue.min.js"></script>
+    <style>
+        table{
+            width:100%;
+            background-color:antiquewhite;
+        }
+        thead {
+            background-color: aqua;
+        }
+        tr:nth-child(even){
+            background-color:blueviolet;
+        }
+        tr:hover{
+            background-color:cadetblue;
+            font-style:italic;
+
+        }
+    </style>
+</head>
+<body>
+    <!--定義一個類別具有建構子-->
+    <script>
+
+        var customers = function (id, name, address, phone, country) {
+            this.id = id;
+            this.name = name;
+            this.address = address;
+            this.phone = phone;
+            this.country = country;
+        }
+    </script>
+
+    <fieldset id="app">
+        <legend>{{title}}</legend>
+        <button v-on:click="init">產生客戶資料</button>
+        <div>客戶數量:{{customers.length}}</div>
+
+        <!--刻出表格 採用渲染方式產生資料列-->
+        <table v-if="customers.length>0">
+            <thead>
+                <tr>
+                    <td>客戶編號</td>
+                    <td>名稱</td>
+                    <td>電話</td>
+                    <td>地址</td>
+                    <td>國家別</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="cust in customers">
+                    <td>{{cust.id}}</td>
+                    <td>{{cust.name}}</td>
+                    <td>{{cust.phone}}</td>
+                    <td>{{cust.address}}</td>
+                    <td>{{cust.country}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </fieldset>
+    <script type="text/javascript">
+        var customerData = [];
+        //建構一個Vue物件
+        var app = new Vue(
+            {
+                el: '#app',
+                data: {
+                    title: '客戶資料庫',
+                    customers: customerData//陣列
+                },
+                methods: {
+                    init: function () {
+                        //建構客戶物件 讓陣列參考
+                        this.customers.push(new customers('001', 'Tim', '台中市', '0921412228', '台灣'))
+                        this.customers.push(new customers('002', 'Ariel', '雲林縣', '0972799113', '台灣'))
+                        this.customers.push(new customers('003', '臭MOMO', '台中市', '0912345677', '台灣'))
+                        this.customers.push(new customers('005', '臭小咪', '台中市', '0909876543', '台灣'))
+                    }
+                }
+            }
+        );
+    </script>
+
+</body>
+
+</html>

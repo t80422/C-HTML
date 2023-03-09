@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>畫布API應用</title>
+</head>
+<body>
+    <canvas id="myCanvas" width="600" height="600">
+        瀏覽器不支援Canvas功能
+    </canvas>
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        //取得一個繪圖Context(Render-渲染器)
+        var context = canvas.getContext('2d');
+        console.log(context);
+        context.fillStyle = "red";
+        //操作繪圖方法(矩形)
+        context.fillRect(50, 50, canvas.width - 50, canvas.height - 50)
+    </script>
+</body>
+</html>

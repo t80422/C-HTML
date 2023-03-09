@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>行事曆</title>
+    <script src="JS/jquery-3.6.3.min.js"></script>
+    <script src="Scripts/jquery-ui.js"></script>
+    <link href="Content/jquery-ui.css" rel="stylesheet" />
+    <link href="Content/jquery-ui.structure.css" rel="stylesheet" />
+    <link href="Content/jquery-ui.theme.css" rel="stylesheet" />
+    <script src="Scripts/bootstrap.bundle.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="JS/vue.min.js"></script>
+    <script src="JS/datepicker-zh-TW.js"></script>
+</head>
+
+<body>
+    <fieldset id="app">
+        <div class="form-control">訂單日期</div>
+        <input id="orderdate" type="text" v-model="orderDate" class="form-control" onclick="dateChange">
+        <div class="form-control">設定訂單日期:{{orderDate}}</div>
+    </fieldset>
+
+    <script>
+        $(document).ready(
+            function () {
+                $('#orderdate').datepicker();
+            }
+        );
+    </script>
+
+    <script>
+        //建構Vue物件
+        var app = new Vue(
+            {
+                el: '#app',
+                data: {
+                    orderDate: '',
+                    message: ''
+                },
+                //Vue物件建立好後引發
+                created: function () {
+                    //進行Text 行事曆UI初始化
+                },
+                methods: {
+                    dateChange: function () {
+                        alert('日期變更');
+                    }
+                }
+            }
+        )
+    </script>
+</body>
+</html>

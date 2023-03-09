@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>多重分支 </title>
+    <script type="text/javascript">
+        var money = 0;
+        //定義函數
+        function roomRate(type) {
+             //進行多重分支判斷
+            switch (type) {
+                case "Large":
+                    money = 10000;
+                    break;
+                case "Middle":
+                    money = 5000;
+                    break;
+                case "Small":
+                    money = 2500;
+                    break;
+            }
+        }
+        //觸發
+        roomRate("Large");
+        document.write("會議廳費用:" + money + "<br/>");
+    </script>
+</head>
+<body>
+
+</body>
+</html>

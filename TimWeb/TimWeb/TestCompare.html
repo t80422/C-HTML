@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>比對應用</title>
+</head>
+<body>
+    <script>
+        var v1 = 100, v2 = 100.0;
+        document.write("v1:" + v1 + " v2:" + v2 +"<br/>");
+        if (v1 == v2) {
+           //比對內容
+            document.write("兩數相等<br/>");
+        }
+        if (v1 === v2) {
+            //比對型別
+            document.write("兩數型別相等<br/>");
+        }
+        var zero = 0;
+        var bvar = false;
+        if (zero == bvar) {
+            document.write("0與false相等<br/>");
+        }
+        if (zero === bvar) {
+            document.write("0與false型別相等<br/>");
+        } else {
+            document.write("0與false型別不相等<br/>")
+        }
+    </script>
+</body>
+</html>

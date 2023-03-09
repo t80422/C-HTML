@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>房間MOMO開紗窗門監控</title>
+    <script src="JS/vue.min.js"></script>
+</head>
+<body>
+    <fieldset id="app">
+        <legend>監控台</legend>
+        <button v-on:click="subscr">開始監控</button>
+    </fieldset>
+    <fieldset>
+        <legend>即時訊息</legend>
+        <table>
+            <tr>
+                <td><div>溫度</div><input type="text" v-model="dataObject.temper" readonly/></td>
+                <td><div>濕度</div><input type="text" v-model="dataObject.humi" readonly/></td>
+                <td><div>Molly是否開門</div><input type="text" v-model="DO.opendoor" readonly/></td>
+                <td><div>位址</div><input type="text" v-model="dataObject.location" readonly/></td>
+                <td><div>時間</div><input type="text" v-model="dataObject.time" readonly/></td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <script>
+        var dataObject = {
+            temper: '',
+            humi: '',
+            opendoor:'',
+            location: '',
+            time:''
+        }
+        
+        var app = new Vue(
+            {
+                el: '#app',
+                data: {
+                    dataObject: dataObject 
+                },
+                methods: {
+                    //訂閱事件
+                    subscr: function () {
+                        var t = this;
+                        //採用WebSocket Client 訂閱後端(CHT Iot)資訊 建構WebSocketet(前端) 採用非同步處理
+                        var client = new WebSocket('wss://iot.cht.com.tw:443/iot/ws/rawdata');
+                        //推播callback
+                        client.onmessage = function (e) {
+                            console.log(e.data);
+                            //將字串反序列化成為JavaScript Object
+                            var jsonObject = JSON.parse(e.data);
+                            var time = jsonObject.time;
+                            var value = jsonObject.value[0];
+                            console.log(time);
+                            console.log(value);
+                            //反序列化資料字串為物件
+                            var valueObject = JSON.parse(value);
+                            console.log('溫度:' + valueObject.temper);
+                            console.log('濕度:' + valueObject.humi);
+                            console.log('是否開門:' + valueObject.opendoor);
+
+                            t.dataObject.temper = valueObject.temper;
+                            t.dataObject.humi = valueObject.humi;
+                            t.dataObject.opendoor = valueObject.opendoor;
+                            t.dataObject.location = valueObject.location;
+                            t.dataObject.time = valueObject.time;
+                        }   
+                        //埋入一個open狀態callback事件 e:Event 用來聆聽事件來源等資訊
+                        client.onopen = function (e) {
+                            console.log(e);
+                            //採用封裝在內部,看不到的AJAX XHR物件的 readState
+                            if (e.target.readyState == 1) {
+                                //採用send()送出訂閱
+                                client.send('{ "ck": "PKAAYMR05PFWP2ZYZC", "resources": [ "/v1/device/33415502756/sensor/MOMO01/rawdata" ] }')
+                            }
+                        }
+                        
+
+                        
+                        
+                    }
+                }
+            }
+        )
+    </script>
+</body>
+</html>

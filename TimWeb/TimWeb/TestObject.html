@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>測試JS物件</title>
+</head>
+<body>
+    <script>
+        //建構字串物件String
+        var name = new String('臭MOMO');
+        alert(name);
+        //日期物件
+        var date = new Date(2023, 0);
+        document.write(date + '<br/>');
+        //資料蒐集 Array陣列
+        var names = new Array(3);
+        names[0] = '臭MOMO';
+        names[1] = '臭小咪';
+        names[2] = 'Tim';
+        names[3] = 'Ariel';//是動態陣列
+        document.write(names + '<br/>');
+        //for loop
+        for (var i = 0; i < names.length; i++) {
+            document.write('姓名:' + names[i] + '<br/>');
+        }
+        //foreach
+        for( key in names) {
+            document.write('foreach姓名:' + names[key] + '<br/>');
+        }
+        //陣列初始化
+        var couses = ['Java', 'C#', 'VB6', 'C++'];
+        couses.push('Python');
+        document.write(couses+'<br/>');
+    </script>
+</body>
+</html>
