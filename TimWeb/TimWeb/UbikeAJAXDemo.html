@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Ubike區域即時資訊查詢</title>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <link href="Content/bootstrap-grid.min.css" rel="stylesheet" />
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="JS/jquery-3.6.3.min.js"></script>
+    <script src="JS/vue.min.js"></script>
+    <script>
+        var urlString = "https://tcgbusfs.blob.core.windows.net/dotapp/youbike/v2/youbike_immediate.json"
+        //進行非同步串接
+        function getUbike() {
+            //1.採用AJAX(非同步架構進行服務請求request 用GET)
+            $.ajax(
+                //Object setting
+                {
+                    url: urlString,
+                    //請求傳送方法
+                    type: 'GET',
+                    //非同步call back
+                    success: function (data, status, xhr) {
+                        //問出回傳值是什麼型態
+                        console.log(typeof data);
+                        //指派給Vue Data
+                        app.ubikeData = data;
+                    },
+                    error: function (xhr, status, error) {
+                        console.log('錯誤')
+                    }
+                }
+            )
+        }
+        //下載網頁物件之後初始化(串接Ubike API 取回所有即時資訊資料)
+        //jQuery Selector(選擇器)
+        $(document).ready(
+            //事件程序
+            function () {
+                //串接Ubike服務 採用非同步處理AJAX
+                console.log('網頁初始化');
+                //透過Timmer去執行function 參數使用function名稱就好 不要加括號 不然會直接Call function而喪失時間功能
+                setTimeout(getUbike, 10000);
+            }
+        );
+    </script>
+</head>
+<body>
+    <fieldset id="app">
+        <legend>Ubike區域即時狀態</legend>
+        <div class="form-control">
+            <div>區域</div>
+            <input type="text" class="text-primary"/>
+            <button class="btn-primary">查詢</button>
+        </div>
+        <div>Ubike基座數量:{{ubikeData.length}}</div>
+    </fieldset>
+    <script>
+        var app = new Vue(
+                    {
+                        el: '#app',
+                        data: {
+                            ubikeData: [],
+                            message:''
+                        }
+                    }
+                )
+    </script>
+</body> 
+</html>
