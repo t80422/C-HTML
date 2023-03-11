@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <title>Ubike區域即時資訊查詢</title>
+
     <script src="Scripts/bootstrap.min.js"></script>
     <link href="Content/bootstrap-grid.min.css" rel="stylesheet" />
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
@@ -40,7 +41,8 @@
                 //串接Ubike服務 採用非同步處理AJAX
                 console.log('網頁初始化');
                 //透過Timmer去執行function 參數使用function名稱就好 不要加括號 不然會直接Call function而喪失時間功能
-                setTimeout(getUbike, 10000);
+                //setTimeout(getUbike, 10000);
+                getUbike();
             }
         );
     </script>
@@ -48,23 +50,65 @@
 <body>
     <fieldset id="app">
         <legend>Ubike區域即時狀態</legend>
-        <div class="form-control">
+        <div>
             <div>區域</div>
-            <input type="text" class="text-primary"/>
-            <button class="btn-primary">查詢</button>
+            <input type="text" class="text-primary" v-model="sArea" />
+            <button v-on:click="query">查詢</button>
         </div>
         <div>Ubike基座數量:{{ubikeData.length}}</div>
+        <div>查詢區域:{{sArea}} 基座數:{{result.length}}</div>
+        <table class="table table-dark table-hover" title="區域即時資訊" v-show="isShow">
+            <thead>
+                <tr class="table-primary">
+                    <td>場站名稱</td>
+                    <td>區域</td>
+                    <td>可用車輛數</td>
+                    <td>可停靠數</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="ub in result">
+                    <td>{{ub.sna}}</td>
+                    <td>{{ub.sarea}}</td>
+                    <td>{{ub.sbi}}</td>
+                    <td>{{ub.bemp}}</td>
+                </tr>
+            </tbody>
+        </table>
     </fieldset>
     <script>
         var app = new Vue(
-                    {
-                        el: '#app',
-                        data: {
-                            ubikeData: [],
-                            message:''
+            {
+                el: '#app',
+                data: {
+                    ubikeData: [],
+                    message: '',
+                    sArea: '大安區',
+                    result: [],
+                    isShow:false
+                },
+                methods: {
+                    //按鈕進行區域離線查詢觸發
+                    query: function () {
+                        //filter 就像foreach 逐筆傳遞進去比對
+                        var result = this.ubikeData.filter(
+                            //篩選程序 固定參數架構
+                            function (ubike, index, array) {
+                                console.log(ubike);
+                                return ubike.sarea == app.sArea
+                            }
+                        )
+                        if (result.length) {
+                            app.isShow = true;
+                        } else {
+                            app.isShow = false;
                         }
+                        app.result = result;
+                        console.log('查詢紀錄數:' + result.length);
                     }
-                )
+                }
+            }
+        )
     </script>
 </body> 
 </html>

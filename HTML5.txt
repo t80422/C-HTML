@@ -24,6 +24,10 @@ Https wss
 	最後一個s 代表s-TLS(Transfor layer security-SSL3)傳輸訊息層加密
 	
 XHR(XML Http Request)
+
+RESTful服务是一种概念，它是一种Web服务架构风格，提供了一种简单、轻量级、易于扩展和可伸缩的方式来设计和实现Web服务。
+
+beacon定位
 	
 	<legend>frame的標題
 		
