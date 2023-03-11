@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <script>
+        //判斷瀏覽器是否支援 HTML 5 GEO API
+        if (window.navigator.geolocation) {
+            alert('有支援GEO API');
+        }
+        var geo = window.navigator.geolocation;
+        console.log(typeof geo);
+        geo.getCurrentPosition(
+            //成功抓取
+            (pos) => console.log(pos),
+            //抓取失敗
+            (error)=> console.log('抓取位置失敗')
+        );
+    </script>
+</body>
+</html>
