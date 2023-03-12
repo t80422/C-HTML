@@ -4,8 +4,7 @@
     <meta charset="utf-8" />
     <title>GEO Location應用</title>
     <meta name="viewport" content="initial-scale=1.0,user-scalable=no"/>
-    <script src="JS/vue.min.js"></script>
-    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+
     <style>
         html{
             height:100%;
@@ -50,52 +49,10 @@
     
 </head>
 <body onload="initMap()">
-    <fieldset id="app">
-        <legend>您現在所在的位址</legend>
-        <div>
-            <div class="text-danger">緯度:{{geoLocation.lat}}</div>
-            <div class="text-dark">經度:{{geoLocation.long}}</div>
-        </div>
-        <!--圖資呈現區域-->
-        <div id="map">
 
-        </div>
-    </fieldset>
-    <script>
-        //判斷瀏覽器是否支援 HTML 5 GEO API
-        if (window.navigator.geolocation) {
-            alert('有支援GEO API');
-        }
-        var geo = window.navigator.geolocation;
-        console.log(typeof geo);
-        //取得現在所在位置(GEO) 採用非同步處理
-        geo.getCurrentPosition(
-            //成功抓取
-            (pos) => {
-                console.log(pos);
-                //指派給Vue資料模組
-                //緯度
-                app.geoLocation.lat = pos.coords.latitude;
-                //經度
-                app.geoLocation.long = pos.coords.longitude;
-            },
-            //抓取失敗
-            (error) => console.log('抓取位置失敗')
-        );  
-    </script>
-    <!--建構Vue物件-->
-    <script>
-        var app = new Vue(
-            {
-                el: '#app',
-                data: {
-                    geoLocation: {
-                        lat: 0.0,
-                        long:0.0
-                    }
-                }
-            }
-        )
-    </script>
+    <!--圖資呈現區域-->
+    <div id="map">
+
+    </div>
 </body>
 </html>
