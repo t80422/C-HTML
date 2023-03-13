@@ -3,20 +3,23 @@
 <head>
     <meta charset="utf-8" />
     <title>GEO Location應用</title>
-    <meta name="viewport" content="initial-scale=1.0,user-scalable=no"/>
+    <meta name="viewport" content="initial-scale=1.0,user-scalable=no" />
+    <script src="JS/jquery-3.6.3.min.js"></script>
 
     <style>
-        html{
-            height:100%;
+        html {
+            height: 100%;
         }
-        body{
-            height:100%;
-            margin:0;
-            padding:0;
-            background-color:lightgreen;
+
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: lightgreen;
         }
-        #map{
-            height:100%;
+
+        #map {
+            height: 100%;
         }
     </style>
     <script src="https://maps.google.com/maps/api/js?key=AIzaSyCvXyxjPNG4jrLlAMaSEFeAsDhElrqnQ8o&sonsor=true"></script>
@@ -31,22 +34,67 @@
                 //圖資放大比率
                 zoom: 14,
                 //中心點屬性(經緯度物件)
-                center: new google.maps.LatLng(0, 0),
+                center: new google.maps.LatLng(23.788627, 120.203845),
                 //呈現圖形(街道圖,衛星圖)
                 mapTypeID: google.maps.MapTypeId.ROADMAP,
                 mapTypeControl: true,
                 mapTypeControlOptions: {
                     style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-                    position:google.maps.ControlPosition.BOTTOM.CENTER
+                    position: google.maps.ControlPosition.BOTTOM.CENTER
                 },
                 zoomControl: true,
                 scaleControl: true
             }
             //建構一個Map物件(綁定標籤物件,設定圖資選項物件)
             map = new google.maps.Map(document.getElementById('map'), options);
+            getLocation();
+        }
+        //取得現在所在位置
+        function getLocation() {
+            if (window.navigator.geolocation) {
+                //瀏覽器有支援 GEO
+                window.navigator.geolocation.getCurrentPosition(
+                    //call back
+                    (pos) => {
+                        //取出經緯度
+                        var lat = pos.coords.latitude;
+                        var lng = pos.coords.longitude;
+                        var decodeURL = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+lat+','+lng+'&key=AIzaSyCvXyxjPNG4jrLlAMaSEFeAsDhElrqnQ8o';
+                        console.log(lat);
+                        //非同步處理
+                        $.ajax(
+                            {
+                                url: decodeURL,
+                                type: 'GET',
+                                success: function (data, status, xhr) {
+                                    console.log(data);
+                                    var address = data.results[0].formatted_address
+                                    console.log(address);
+                                    //建構一個Point物件(經緯度物件)
+                                    var point = new google.maps.LatLng(lat, lng);
+                                    //封裝一個定位點
+                                    var marker = new google.maps.Marker(
+                                        {
+                                            position: point,
+                                            title: address
+                                        }
+                                    );
+                                    //設定定位點在地圖上 
+                                    marker.setMap(map);
+                                    //移動地圖 採用這個Point為中心點
+                                    map.setCenter(point);
+                                    map.setZoom(17);
+                                }
+                            }
+                        );
+  
+                    }
+                );
+
+            }
         }
     </script>
-    
+
 </head>
 <body onload="initMap()">
 

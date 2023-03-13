@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Worker as Task(背後執行緒Target)</title>
+    <script>
+        var worker;
+        //啟動worker進行計數
+        function startWorker() {
+            //判斷是否支援此物件
+            if (typeof worker == 'undefined') {
+                //建構物件(callback function)
+                worker = new Worker('process.js');
+            }
+            //message callback
+            worker.onmessage = function (e) {
+                document.getElementById('result').innerText = e.data;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="result"></div>
+    <button onclick="startWorker">按我</button>
+</body>
+</html>
